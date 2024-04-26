@@ -9,7 +9,7 @@
         </intent>
     </queries>
     <application
-        android:label="binarytalk"
+        android:label="Binary Talk Hub"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
