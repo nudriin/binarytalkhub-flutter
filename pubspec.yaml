@@ -1,0 +1,42 @@
+name: binarytalk
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=3.3.3 <4.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.6
+  get: 4.6.6
+  flutter: 
+    sdk: flutter
+  video_player: 2.8.6
+  file_picker: ^8.0.2
+  http: ^1.2.1
+  shared_preferences: ^2.2.3
+  animated_text_kit: ^4.2.2
+  url_launcher: ^6.2.6
+  google_fonts: ^6.2.1
+
+dev_dependencies: 
+  flutter_lints: 3.0.2
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  uses-material-design: true
+
+  assets:
+    - assets/326.mp4
+    - assets/images/
+
+  fonts:
+    - family: Futura
+      fonts:
+        - asset: assets/fonts/futur.ttf
+        - asset: assets/fonts/FuturaLight.ttf
+          weight: 100
+    - family: Poppins
+      fonts:
+      - asset: assets/fonts/Poppins-Regular.ttf
+

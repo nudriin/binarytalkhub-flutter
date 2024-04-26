@@ -1,0 +1,123 @@
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+
+import '../controllers/home_controller.dart';
+
+class HomeView extends GetView<HomeController> {
+  const HomeView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'PDF Sumarizer',
+          style: TextStyle(color: Colors.white, fontFamily: 'Futura'),
+        ),
+        centerTitle: true,
+        backgroundColor: Color.fromRGBO(15, 23, 42, 1),
+        elevation: 0,
+      ),
+      body: Stack(
+        children: [
+          ClipPath(
+            clipper: Clipping(),
+            child: Container(
+              height: 250,
+              width: Get.width,
+              color: Color.fromRGBO(15, 23, 42, 1),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 90),
+            child: Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 25),
+                  color: Color(0xFF7E30E1),
+                  height: 200,
+                  width: Get.width,
+                  alignment: Alignment.center,
+                  child: ElevatedButton(
+                    onPressed: () => fileInput(),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF7E30E1),
+                    ),
+                    child: Icon(
+                      Icons.file_present_rounded,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 25),
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 40),
+                  height: 2,
+                  color: Colors.grey[200],
+                ),
+                // CONTAINER
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                  child: Obx(() {
+                    return Text(controller.messages.value);
+                  }),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void fileInput() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+
+    if (result != null) {
+      String? filePath = result.files.single.path;
+      print("File path: $filePath");
+
+      String? uploadResponse = await HomeController().uploadFile(filePath!);
+      if (uploadResponse != null) {
+        // Menampilkan pesan respons ke pengguna
+        controller.updateMessages(uploadResponse);
+      }
+    } else {
+      print("User canceled the picker");
+    }
+  }
+}
+
+class Clipping extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+
+    path.lineTo(0, size.height - 60);
+    path.quadraticBezierTo(
+        size.width / 2, size.height, size.width, size.height - 60);
+    path.lineTo(size.width, 0);
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return false;
+  }
+}
