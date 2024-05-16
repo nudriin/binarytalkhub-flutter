@@ -14,7 +14,7 @@ class HomeController extends GetxController {
     updateLoading(true);
     String? authToken = await getToken();
     final Uri apiUrl =
-        Uri.parse('https://binarytalkhub.pemweb.cloud/api/summarize/pdf');
+        Uri.parse('https://api-binary-talk.vercel.app/api/summarize/pdf');
 
     final file = File(filePath);
     if (!file.existsSync()) {

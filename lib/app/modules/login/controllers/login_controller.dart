@@ -13,7 +13,7 @@ class LoginController extends GetxController {
     String username = usernameController.text;
     String password = passwordController.text;
 
-    const apiUrl = 'https://binarytalkhub.pemweb.cloud/api/users/login';
+    const apiUrl = 'https://api-binary-talk.vercel.app/api/users/login';
 
     try {
       final response = await http.post(
